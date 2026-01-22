@@ -954,8 +954,11 @@ a {
   color: var(--text-tertiary);
 }
 
-/* Category List - Row Layout */
-.categories-header {
+/* Page Headers - Uniform Spacing */
+.categories-header,
+.mates-header,
+.timeline-header,
+.stats-header {
   margin-bottom: var(--spacing-3xl);
 }
 
@@ -979,7 +982,7 @@ a {
 .category-name-column {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xs);
+  gap: 0;
   align-items: flex-start;
   justify-content: flex-start;
 }
@@ -1053,6 +1056,17 @@ a {
 
 .category-movie-card {
   width: 100%;
+  transition: all var(--transition-fast);
+  border-radius: var(--radius-md);
+}
+
+.category-movie-card.selected-pick {
+  outline: 3px solid var(--oscar-gold);
+  outline-offset: 2px;
+}
+
+.category-movie-card:hover {
+  transform: translateY(-2px);
 }
 
 /* =================================== */
