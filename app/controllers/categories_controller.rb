@@ -5,6 +5,9 @@ class CategoriesController < ApplicationController
 
   def index
     @categories = ListCategoryQuery.new(params, current_year).results
+    # Preload movies for each category to display on the index page
+    @categories = @categories.includes(movies: :reviews)
+    @user_reviews = current_user ? current_user.reviews.index_by(&:movie_id) : {}
   end
 
   def show
