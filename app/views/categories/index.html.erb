@@ -1,41 +1,42 @@
 <main class="categories-page">
   <div class="container mx-auto px-4 py-8">
-    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between categories-header">
-      <div>
-        <h1 class="page-title mb-0">Categories</h1>
-        <!-- Summary Statistics as subtitle -->
-        <div class="flex flex-wrap items-center gap-3 mt-3">
-          <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-full border border-slate-200">
-            <i data-lucide="film" class="text-muted" style="width: 16px; height: 16px;"></i>
-            <span class="text-sm text-secondary"><%= current_year %> Awards nominees: <strong class="text-primary"><%= @total_nominees %></strong></span>
+    <div class="categories-header">
+      <h1 class="page-title mb-0">Categories</h1>
+
+      <!-- Summary Statistics and Actions Row -->
+      <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mt-3">
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="stat-badge">
+            <i data-lucide="film"></i>
+            <span><%= current_year %> Awards nominees: <strong><%= @total_nominees %></strong></span>
           </div>
-          <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-full border border-slate-200">
-            <i data-lucide="calendar" class="text-muted" style="width: 16px; height: 16px;"></i>
-            <span class="text-sm text-secondary">Days until ceremony: <strong class="text-primary"><%= @days_until_ceremony %></strong></span>
+          <div class="stat-badge">
+            <i data-lucide="calendar"></i>
+            <span>Days until ceremony: <strong><%= @days_until_ceremony %></strong></span>
           </div>
-          <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-full border border-slate-200">
-            <i data-lucide="trophy" class="text-muted" style="width: 16px; height: 16px;"></i>
-            <span class="text-sm text-secondary">Category winners left to pick: <strong class="text-primary"><%= @categories_count %></strong></span>
+          <div class="stat-badge">
+            <i data-lucide="trophy"></i>
+            <span>Category winners left to pick: <strong><%= @categories_count %></strong></span>
           </div>
         </div>
-      </div>
 
-      <div class="flex flex-wrap items-center gap-3">
-        <form class="search-form" role="search" action="<%= categories_path(year: current_year) %>" method="get">
-          <i data-lucide="search" class="search-icon"></i>
-          <input class="search-input"
-                 type="search"
-                 name="query"
-                 placeholder="Search..."
-                 aria-label="Search"
-                 value="<%= params[:query] %>">
-        </form>
+        <div class="flex flex-wrap items-center gap-3">
+          <form class="search-form" role="search" action="<%= categories_path(year: current_year) %>" method="get">
+            <i data-lucide="search" class="search-icon"></i>
+            <input class="search-input"
+                   type="search"
+                   name="query"
+                   placeholder="Search..."
+                   aria-label="Search"
+                   value="<%= params[:query] %>">
+          </form>
 
-        <% if current_user_admin? %>
-          <%= link_to new_category_path(year: current_year), class: "btn-oscar btn-sm" do %>
-            <i data-lucide="plus" class="text-muted"></i>
+          <% if current_user_admin? %>
+            <%= link_to new_category_path(year: current_year), class: "btn-oscar btn-sm" do %>
+              <i data-lucide="plus" class="text-muted"></i>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
     </div>
 
