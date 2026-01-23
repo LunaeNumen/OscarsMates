@@ -506,18 +506,23 @@
 
         <div class="space-y-4">
           <div>
-            <label class="mb-2 block text-sm font-semibold text-slate-700">Text Input</label>
-            <input type="text" placeholder="Enter text..." class="w-full rounded-md border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-slate-400 focus:ring-slate-300">
+            <label>Text Input</label>
+            <input type="text" placeholder="Enter text...">
           </div>
 
           <div>
-            <label class="mb-2 block text-sm font-semibold text-slate-700">With Focus State</label>
-            <input type="text" placeholder="Focus me..." class="w-full rounded-md border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-slate-400 focus:ring-slate-300" autofocus>
+            <label>Email Input</label>
+            <input type="email" placeholder="Enter email...">
           </div>
 
           <div>
-            <label class="mb-2 block text-sm font-semibold text-slate-700">Select Dropdown</label>
-            <select class="w-full rounded-md border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-slate-400 focus:ring-slate-300">
+            <label>Date Input</label>
+            <input type="date">
+          </div>
+
+          <div>
+            <label>Select Dropdown</label>
+            <select>
               <option>Option 1</option>
               <option>Option 2</option>
               <option>Option 3</option>
@@ -525,22 +530,31 @@
           </div>
 
           <div>
-            <label class="mb-2 block text-sm font-semibold text-slate-700">Checkboxes</label>
+            <label>Textarea</label>
+            <textarea rows="3" placeholder="Enter longer text..."></textarea>
+          </div>
+
+          <div>
+            <label>Checkboxes</label>
             <div class="flex flex-wrap gap-4">
               <label class="inline-flex items-center gap-2 text-sm text-slate-600">
-                <input type="checkbox" class="rounded border-slate-300 text-slate-900 focus:ring-slate-400">
+                <input type="checkbox">
                 <span>Option 1</span>
               </label>
               <label class="inline-flex items-center gap-2 text-sm text-slate-600">
-                <input type="checkbox" class="rounded border-slate-300 text-slate-900 focus:ring-slate-400">
+                <input type="checkbox">
                 <span>Option 2</span>
               </label>
               <label class="inline-flex items-center gap-2 text-sm text-slate-600">
-                <input type="checkbox" checked class="rounded border-slate-300 text-slate-900 focus:ring-slate-400">
+                <input type="checkbox" checked>
                 <span>Checked</span>
               </label>
             </div>
           </div>
+        </div>
+
+        <div class="mt-4 text-sm text-slate-600">
+          <p><strong>Note:</strong> All form controls automatically use design system colors via global styles.</p>
         </div>
       </div>
 
