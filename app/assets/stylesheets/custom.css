@@ -1316,6 +1316,7 @@ a {
   pointer-events: none;
 }
 
+input[type="search"].search-input,
 .search-input {
   width: 100%;
   border: 1px solid var(--border-color);
