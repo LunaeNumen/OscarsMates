@@ -133,14 +133,5 @@
       <% end %>
     </div>
 
-    <%# Danger Zone %>
-    <% if current_user?(@user) %>
-      <div class="profile-danger-zone mt-8">
-        <%= link_to user_path(@user), class: "btn-danger btn-sm",
-              data: { turbo_method: :delete, turbo_confirm: "Permanently delete your account?!" } do %>
-          <i data-lucide="trash-2"></i> Delete Account
-        <% end %>
-      </div>
-    <% end %>
   </div>
 </main>
