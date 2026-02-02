@@ -850,6 +850,69 @@ a {
 }
 
 /* =================================== */
+/* Mate Rating Component */
+/* =================================== */
+.mate-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.mate-rating-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.mate-rating-star {
+  flex-shrink: 0;
+  display: block;
+}
+
+.mate-rating-star-filled {
+  fill: var(--oscar-gold);
+}
+
+.mate-rating-star-empty {
+  fill: var(--text-tertiary);
+}
+
+.mate-rating-text {
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+/* Size variants */
+.mate-rating-sm .mate-rating-star {
+  width: 16px;
+  height: 16px;
+}
+
+.mate-rating-sm .mate-rating-text {
+  font-size: 0.875rem;
+}
+
+.mate-rating-md .mate-rating-star {
+  width: 20px;
+  height: 20px;
+}
+
+.mate-rating-md .mate-rating-text {
+  font-size: 1rem;
+}
+
+.mate-rating-lg .mate-rating-star {
+  width: 28px;
+  height: 28px;
+}
+
+.mate-rating-lg .mate-rating-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* =================================== */
 /* Custom Date Picker */
 /* =================================== */
 .date-picker-wrapper {
@@ -3398,8 +3461,6 @@ input[type="search"].search-input,
   }
 
   .timeline-content {
-    flex-direction: column;
-    align-items: flex-start;
     gap: var(--spacing-md);
     width: 100%;
   }
@@ -3424,16 +3485,7 @@ input[type="search"].search-input,
     overflow: hidden;
   }
 
-  /* Make username bigger - using next size up from design system */
-  .timeline-text .text-sm.font-semibold {
-    font-size: 1.125rem;
-    line-height: 1.4;
-  }
-
-  /* Make event text bigger - using next size up from design system */
   .timeline-event {
-    font-size: 1rem;
-    line-height: 1.5;
     white-space: normal;
     word-wrap: break-word;
   }
@@ -3442,21 +3494,34 @@ input[type="search"].search-input,
     font-weight: 500;
   }
 
-  /* Rating below user info - fixed width for "10", left aligned */
-  .timeline-rating {
-    width: auto;
-    min-width: 4rem;
-    max-width: 4rem;
-    margin: 0;
-    padding: var(--spacing-sm) var(--spacing-md);
-    font-size: 1.25rem;
-    text-align: center;
-    align-self: flex-start;
-  }
-
   /* Comment below rating */
   .timeline-item .mt-2 {
     margin-top: var(--spacing-sm);
+  }
+}
+
+/* Username link styling - applies to all screen sizes */
+.timeline-username-link {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.timeline-username-link:hover {
+  color: var(--oscar-gold-dark);
+}
+
+/* Desktop timeline layout */
+@media (min-width: 1024px) {
+  .timeline-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .timeline-rating-desktop {
+    align-self: flex-start;
   }
 }
 

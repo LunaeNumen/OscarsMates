@@ -90,7 +90,9 @@
                 <div class="profile-movie-info">
                   <div class="profile-movie-title">
                     <%= link_to review.movie.title, movie_path(year: current_year, id: review.movie.id) %>
-                    <span class="text-gold"><%= render_stars(review.stars) %></span>
+                  </div>
+                  <div class="mt-1">
+                    <%= render "shared/mate_rating", rating: review.stars, size: :sm %>
                   </div>
                   <div class="text-sm text-muted">
                     Watched on:
