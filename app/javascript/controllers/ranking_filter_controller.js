@@ -12,6 +12,14 @@ export default class extends Controller {
 
   connect() {
     this.alignProgressBars();
+    this.initializeLucideIcons();
+  }
+
+  initializeLucideIcons() {
+    // Re-initialize lucide icons to ensure hover icons work
+    if (typeof window.lucide !== 'undefined' && window.lucide.createIcons) {
+      window.lucide.createIcons();
+    }
   }
 
   alignProgressBars() {
@@ -268,9 +276,7 @@ export default class extends Controller {
       });
 
       // Re-initialize lucide icons for new items
-      if (window.lucide) {
-        window.lucide.createIcons();
-      }
+      this.initializeLucideIcons();
 
       // Re-align progress bars
       this.alignProgressBars();

@@ -138,7 +138,7 @@
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: "Rubik", sans-serif;
+  font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
@@ -556,16 +556,15 @@ a {
   z-index: 10;
 
   h2 {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 500;
     margin: 0 0 var(--spacing-sm);
     color: var(--text-primary);
     line-height: 1.2;
     letter-spacing: -0.02em;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     cursor: default;
   }
 }
@@ -2860,7 +2859,7 @@ input[type="search"].search-input,
 
 .ranking-progress-bar {
   flex: 1;
-  background: var(--slate-50);
+  background: var(--border-color);
   border-radius: 4px;
   overflow: hidden;
   transition: height 0.3s ease-out;
@@ -2884,7 +2883,7 @@ input[type="search"].search-input,
 }
 
 .ranking-progress-secondary .ranking-progress-fill {
-  background: var(--oscar-gold-dark);
+  background: var(--oscar-gold);
 }
 
 .ranking-progress-label {
@@ -2904,7 +2903,7 @@ input[type="search"].search-input,
   transition: color 0.3s ease;
 }
 
-/* Inactive metric styling (label and percentage) - not bold, gold */
+/* Inactive metric styling (label and percentage) - not bold, gold dark */
 .ranking-progress-secondary ~ .ranking-progress-label,
 .ranking-progress-secondary ~ .ranking-progress-percentage {
   color: var(--oscar-gold-dark);
@@ -2929,28 +2928,104 @@ input[type="search"].search-input,
 @media (max-width: 640px) {
   .ranking-item {
     flex-wrap: wrap;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) var(--spacing-xs);
   }
 
   .ranking-identity {
-    width: auto;
-    flex-shrink: 1;
+    width: 140px;
+    flex-shrink: 0;
+    gap: var(--spacing-xs);
   }
 
   .ranking-position {
-    min-width: 30px;
+    width: 24px;
+    flex-shrink: 0;
   }
 
   .ranking-number {
     font-size: 0.875rem;
   }
 
+  /* Avatar sizing: 30px (40% of 48px, 20% increase from 24px) */
+  .ranking-avatar-wrapper {
+    width: 30px !important;
+    height: 30px !important;
+    flex-shrink: 0;
+  }
+
+  .ranking-avatar-wrapper .avatar-component {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .ranking-avatar-wrapper .avatar-md,
+  .ranking-avatar-wrapper img,
+  .ranking-avatar-wrapper > * > img,
+  .ranking-avatar-wrapper > * > div {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    min-height: 30px !important;
+    font-size: 0.625rem !important;
+  }
+
+  /* Fix hover overlay sizing */
+  .ranking-avatar-overlay {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 50%;
+  }
+
+  .ranking-follow-btn {
+    width: 30px !important;
+    height: 30px !important;
+    padding: 0 !important;
+  }
+
+  .ranking-follow-btn i,
+  .ranking-follow-btn svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  /* Truncate username to max 12 characters with ellipsis */
+  .ranking-user-name {
+    width: 12ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+  }
+
+  /* Align progress bars to start at same position */
   .ranking-progress-bars {
+    width: calc(100% - 140px);
+    flex-shrink: 1;
+  }
+
+  /* Make all progress bars equal width */
+  .ranking-progress-row {
+    display: grid;
+    grid-template-columns: 1fr 65px 42px;
+    gap: var(--spacing-sm);
+    align-items: center;
+  }
+
+  .ranking-progress-bar {
+    min-width: 0;
     width: 100%;
   }
 
+  .ranking-progress-label {
+    width: 65px;
+    flex-shrink: 0;
+  }
+
   .ranking-progress-percentage {
-    min-width: 40px;
+    width: 42px;
+    flex-shrink: 0;
     font-size: 0.75rem;
   }
 
