@@ -67,22 +67,26 @@
 
       <%# Search - Middle %>
       <div class="search-wrapper">
-        <form class="search-form" role="search" action="<%= movies_path(year: current_year) %>" method="get">
+        <form class="search-form" role="search" action="<%= movies_path(year: current_year) %>" method="get" data-controller="movie-search">
           <i data-lucide="search" class="search-icon"></i>
           <input class="search-input"
                  type="search"
                  name="query"
                  placeholder="Search movies..."
                  aria-label="Search"
-                 value="<%= params[:query] %>">
+                 value="<%= params[:query] %>"
+                 data-movie-search-target="input"
+                 data-action="input->movie-search#toggleClearButton">
           <input type="hidden" name="filter_by" value="<%= params[:filter_by] %>">
           <input type="hidden" name="sort_by" value="<%= params[:sort_by] %>">
           <input type="hidden" name="category_id" value="<%= params[:category_id] %>">
-          <% if params[:query].present? %>
-            <%= link_to movies_path(year: current_year, filter_by: params[:filter_by], sort_by: params[:sort_by], category_id: params[:category_id]), class: "search-clear" do %>
-              <i data-lucide="x" class="text-muted"></i>
-            <% end %>
-          <% end %>
+          <button type="button"
+                  class="search-clear"
+                  data-movie-search-target="clearBtn"
+                  data-action="click->movie-search#clear"
+                  style="<%= 'display: none;' if params[:query].blank? %>">
+            <i data-lucide="x"></i>
+          </button>
         </form>
       </div>
 

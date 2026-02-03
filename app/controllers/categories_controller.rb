@@ -5,7 +5,8 @@ class CategoriesController < ApplicationController
 
   # rubocop:disable Metrics/AbcSize
   def index
-    @categories = ListCategoryQuery.new(params, current_year).results
+    @query_obj = ListCategoryQuery.new(params, current_year)
+    @categories = @query_obj.results
     @user_reviews = current_user ? current_user.reviews.index_by(&:movie_id) : {}
     @user_picks = current_user ? current_user.user_picks.where(year: current_year).index_by(&:category_id) : {}
 
