@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
   before_action :require_admin, only: %i[new create edit update destroy]
   before_action :set_category, only: %i[show edit update destroy]
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def index
     @query_obj = ListCategoryQuery.new(params, current_year)
     @categories = @query_obj.results
@@ -37,7 +37,7 @@ class CategoriesController < ApplicationController
     @days_until_ceremony = (@ceremony_date - Time.zone.today).to_i
     @categories_count = @categories.count - @user_picks.count
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def show
     @category = Category.find(params[:id])

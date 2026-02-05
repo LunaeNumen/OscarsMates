@@ -17,7 +17,7 @@ export default class extends Controller {
 
   initializeLucideIcons() {
     // Re-initialize lucide icons to ensure hover icons work
-    if (typeof window.lucide !== 'undefined' && window.lucide.createIcons) {
+    if (typeof window.lucide !== "undefined" && window.lucide.createIcons) {
       window.lucide.createIcons();
     }
   }

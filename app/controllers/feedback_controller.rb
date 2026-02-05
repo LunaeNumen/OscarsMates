@@ -25,7 +25,7 @@ class FeedbackController < ApplicationController
 
     if message.length < 100
       flash[:alert] = 'Message must be at least 100 characters long.'
-      redirect_back(fallback_location: root_path) and return
+      redirect_back_or_to(root_path) and return
     end
 
     # Send email
@@ -45,10 +45,10 @@ class FeedbackController < ApplicationController
 
   def check_rate_limit
     last_sent_at = session[:last_feedback_sent_at]
-    if last_sent_at && (Time.current.to_i - last_sent_at) < 300
-      time_left = 300 - (Time.current.to_i - last_sent_at)
-      flash[:alert] = "Please wait #{(time_left / 60.0).ceil} more minute(s) before sending another message."
-      redirect_back(fallback_location: root_path) and return
-    end
+    return unless last_sent_at && (Time.current.to_i - last_sent_at) < 300
+
+    time_left = 300 - (Time.current.to_i - last_sent_at)
+    flash[:alert] = "Please wait #{(time_left / 60.0).ceil} more minute(s) before sending another message."
+    redirect_back_or_to(root_path) and return
   end
 end

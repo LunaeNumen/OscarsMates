@@ -8,31 +8,39 @@ class ListCategoryQuery
   end
 
   def results
-    categories = if @query.blank?
-                   Category.all
-                 else
-                   # Search both category names and movie titles
-                   category_ids = Category.joins(nominations: :movie)
-                                          .where(nominations: { year: @year })
-                                          .where(
-                                            'categories.name LIKE ? OR movies.title LIKE ? OR movies.english_title LIKE ?',
-                                            "%#{@query}%", "%#{@query}%", "%#{@query}%"
-                                          )
-                                          .distinct
-                                          .pluck(:id)
+    return Category.all.for_year(@year) if @query.blank?
 
-                   # Count matched movies for display
-                   @matched_movies_count = Movie.joins(:nominations)
-                                                 .where(nominations: { year: @year, category_id: category_ids })
-                                                 .where('movies.title LIKE ? OR movies.english_title LIKE ?',
-                                                        "%#{@query}%", "%#{@query}%")
-                                                 .distinct
-                                                 .count
+    categories_with_query.for_year(@year)
+  end
 
-                   Category.where(id: category_ids)
-                 end
+  private
 
-    # Only return categories that have nominations in the selected year
-    categories.for_year(@year)
+  def categories_with_query
+    category_ids = Category.joins(nominations: :movie)
+                           .where(nominations: { year: @year })
+                           .where(category_search_sql, *query_terms)
+                           .distinct
+                           .pluck(:id)
+
+    @matched_movies_count = Movie.joins(:nominations)
+                                 .where(nominations: { year: @year, category_id: category_ids })
+                                 .where(movie_search_sql, *query_terms)
+                                 .distinct
+                                 .count
+
+    Category.where(id: category_ids)
+  end
+
+  def query_terms
+    term = "%#{@query}%"
+    [term, term, term]
+  end
+
+  def category_search_sql
+    'categories.name LIKE ? OR movies.title LIKE ? OR movies.english_title LIKE ?'
+  end
+
+  def movie_search_sql
+    'movies.title LIKE ? OR movies.english_title LIKE ?'
   end
 end
