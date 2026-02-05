@@ -42,6 +42,7 @@ RSpec.describe ListMoviesQuery do
         expect(result).to include(movie2)
         expect(result).not_to include(movie1)
       end
+
     end
 
     context 'with filter_by unwatched' do

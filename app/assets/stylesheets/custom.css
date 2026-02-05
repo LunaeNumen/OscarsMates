@@ -550,6 +550,9 @@ a {
   padding: var(--spacing-md);
   background: white;
   cursor: default;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   border-radius: var(--radius-lg);
   margin-top: calc(-3 * var(--radius-lg));
   position: relative;
@@ -563,6 +566,9 @@ a {
     color: var(--text-primary);
     line-height: 1.2;
     letter-spacing: -0.02em;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
