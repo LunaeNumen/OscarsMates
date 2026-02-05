@@ -600,7 +600,7 @@ end
 Rails.logger.debug 'Creating Nominations...'
 Nomination.destroy_all
 
-nomination_data = [
+base_nomination_data = [
   { movie_title: 'Oppenheimer', category_name: 'Best Picture', year: 2024, name: 'Oppenheimer' },
   { movie_title: 'Oppenheimer', category_name: 'Best Director', year: 2024, name: 'Christopher Nolan' },
   { movie_title: 'Oppenheimer', category_name: 'Best Actor', year: 2024, name: 'Cillian Murphy' },
@@ -673,6 +673,11 @@ nomination_data = [
 
   { movie_title: 'Godzilla Minus One', category_name: 'Best Visual Effects', year: 2024, name: 'Godzilla Minus One' }
 ]
+
+additional_years = [2025, 2026]
+nomination_data = base_nomination_data + additional_years.flat_map do |year|
+  base_nomination_data.map { |nom| nom.merge(year: year) }
+end
 
 nomination_data.each do |nom|
   movie = Movie.find_by(title: nom[:movie_title])
