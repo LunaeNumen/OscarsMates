@@ -48,7 +48,7 @@ class FeedbackController < ApplicationController
     if last_sent_at && (Time.current.to_i - last_sent_at) < 300
       time_left = 300 - (Time.current.to_i - last_sent_at)
       flash[:alert] = "Please wait #{(time_left / 60.0).ceil} more minute(s) before sending another message."
-      redirect_back(fallback_location: root_path)
+      redirect_back(fallback_location: root_path) and return
     end
   end
 end

@@ -29,7 +29,8 @@ class ListMoviesQuery
   end
 
   def search_movies
-    @results = @results.where('title LIKE ?', "%#{query.downcase}%")
+    query_term = "%#{query}%"
+    @results = @results.where('title LIKE ? OR english_title LIKE ?', query_term, query_term)
   end
 
   def apply_filters
