@@ -76,7 +76,7 @@
                  aria-label="Search"
                  value="<%= params[:query] %>"
                  data-movie-search-target="input"
-                 data-action="input->movie-search#toggleClearButton">
+                 data-action="input->movie-search#onInput">
           <input type="hidden" name="filter_by" value="<%= params[:filter_by] %>">
           <input type="hidden" name="sort_by" value="<%= params[:sort_by] %>">
           <input type="hidden" name="category_id" value="<%= params[:category_id] %>">

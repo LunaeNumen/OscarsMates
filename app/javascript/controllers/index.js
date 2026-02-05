@@ -17,6 +17,8 @@ import StarRatingController from "./star_rating_controller";
 import DatePickerController from "./date_picker_controller";
 import FeedbackFormController from "./feedback_form_controller";
 import DeleteAccountController from "./delete_account_controller";
+import MovieSearchController from "./movie_search_controller";
+import CategorySearchController from "./category_search_controller";
 
 application.register("hello", HelloController);
 application.register("confetti", ConfettiController);
@@ -32,3 +34,5 @@ application.register("star-rating", StarRatingController);
 application.register("date-picker", DatePickerController);
 application.register("feedback-form", FeedbackFormController);
 application.register("delete-account", DeleteAccountController);
+application.register("movie-search", MovieSearchController);
+application.register("category-search", CategorySearchController);

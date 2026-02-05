@@ -15,7 +15,11 @@ class CategoriesController < ApplicationController
     nominations = Nomination.where(year: current_year, category_id: @categories.select(:id))
                             .includes(movie: :reviews)
     @category_movies = nominations.group_by(&:category_id).transform_values do |noms|
-      noms.map(&:movie)
+      movies = noms.map(&:movie)
+      next movies if params[:query].blank?
+
+      query_lower = params[:query].downcase
+      movies.select { |m| m.title.downcase.include?(query_lower) || m.english_title&.downcase&.include?(query_lower) }
     end
 
     # Get pick counts per category/movie from users the current user follows

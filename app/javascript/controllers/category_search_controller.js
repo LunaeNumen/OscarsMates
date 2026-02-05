@@ -4,34 +4,48 @@ export default class extends Controller {
   static targets = ["input", "clearBtn"]
 
   connect() {
-    this.toggleClearButton()
+    if (this.hasClearBtnTarget) {
+      this.clearBtnTarget.style.display = this.inputTarget.value.length > 0 ? 'flex' : 'none'
+    }
   }
 
-  toggleClearButton() {
+  onInput() {
+    const value = this.inputTarget.value
+
     if (this.hasClearBtnTarget) {
-      const hasValue = this.inputTarget.value.length > 0
-      this.clearBtnTarget.style.display = hasValue ? 'flex' : 'none'
+      this.clearBtnTarget.style.display = value.length > 0 ? 'flex' : 'none'
     }
 
-    // If input is cleared, submit the form to show all results
-    if (this.inputTarget.value === '') {
-      this.inputTarget.form.submit()
+    clearTimeout(this.searchTimeout)
+
+    if (value === '') {
+      this.navigateClear()
+    } else if (value.length >= 3) {
+      this.searchTimeout = setTimeout(() => this.navigateSearch(), 300)
     }
   }
 
   clear(event) {
     event.preventDefault()
-    event.stopPropagation()
-
-    // Clear the input
+    clearTimeout(this.searchTimeout)
     this.inputTarget.value = ''
-
-    // Hide the clear button
     if (this.hasClearBtnTarget) {
       this.clearBtnTarget.style.display = 'none'
     }
+    this.navigateClear()
+  }
 
-    // Submit the form to reload without query parameter
-    this.inputTarget.form.submit()
+  navigateSearch() {
+    const url = new URL(window.location.href)
+    url.searchParams.set('query', this.inputTarget.value)
+    window.location.href = url.toString()
+  }
+
+  navigateClear() {
+    const url = new URL(window.location.href)
+    if (url.searchParams.has('query')) {
+      url.searchParams.delete('query')
+      window.location.href = url.toString()
+    }
   }
 }

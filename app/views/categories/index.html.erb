@@ -23,7 +23,7 @@
         </div>
 
         <div class="categories-search-row flex flex-wrap items-center gap-3">
-          <div class="flex flex-col gap-2" data-controller="category-search">
+          <div class="relative" data-controller="category-search">
             <form class="search-form" role="search" action="<%= categories_path(year: current_year) %>" method="get">
               <i data-lucide="search" class="search-icon"></i>
               <input class="search-input"
@@ -33,7 +33,7 @@
                      aria-label="Search"
                      value="<%= params[:query] %>"
                      data-category-search-target="input"
-                     data-action="input->category-search#toggleClearButton">
+                     data-action="input->category-search#onInput">
               <button type="button"
                       class="search-clear"
                       data-category-search-target="clearBtn"

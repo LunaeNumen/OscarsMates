@@ -428,8 +428,12 @@ a {
 .movies-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: 1fr;
   gap: var(--spacing-lg);
+
+  /* Allow grid items to shrink below content size for text truncation */
+  > * {
+    min-width: 0;
+  }
 
   /* Single column for very small screens */
   @media (max-width: 374px) {
@@ -466,9 +470,8 @@ a {
     transform 0.2s ease,
     box-shadow 0.2s ease;
   cursor: default;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  width: 100%;
+  min-width: 0;
 
   &:hover {
     box-shadow: var(--card-shadow-hover);
@@ -544,16 +547,14 @@ a {
 }
 
 .movie-card-info {
-  padding: var(--spacing-md) var(--spacing-md) var(--spacing-md);
+  padding: var(--spacing-md);
   background: white;
   cursor: default;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   border-radius: var(--radius-lg);
   margin-top: calc(-3 * var(--radius-lg));
   position: relative;
   z-index: 10;
+  min-width: 0;
 
   h2 {
     font-size: 0.95rem;
@@ -575,7 +576,6 @@ a {
   align-items: center;
   font-size: 0.75rem;
   gap: var(--spacing-sm);
-  margin-top: auto;
 
   i {
     font-size: 0.875rem;
@@ -1962,6 +1962,17 @@ input[type="search"]::-ms-clear {
   height: 0;
 }
 
+/* Override Chrome autofill/autocomplete styling */
+input[type="search"]:-webkit-autofill,
+input[type="search"]:-webkit-autofill:hover,
+input[type="search"]:-webkit-autofill:focus,
+input[type="search"]:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px var(--bg-secondary) inset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  caret-color: var(--text-primary);
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 .search-clear {
   position: absolute;
   right: var(--spacing-sm);
@@ -1988,9 +1999,15 @@ input[type="search"]::-ms-clear {
 }
 
 .search-results-count {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: var(--spacing-xs);
   font-size: 0.75rem;
   color: var(--text-secondary);
   padding-left: var(--spacing-xxl);
+  font-style: italic;
+  white-space: nowrap;
 }
 
 .toolbar-actions {
