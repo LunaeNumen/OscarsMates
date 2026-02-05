@@ -24,7 +24,7 @@ class ListCategoryQuery
 
     @matched_movies_count = Movie.joins(:nominations)
                                  .where(nominations: { year: @year, category_id: category_ids })
-                                 .where(movie_search_sql, *query_terms)
+                                 .where(movie_search_sql, *movie_query_terms)
                                  .distinct
                                  .count
 
@@ -34,6 +34,11 @@ class ListCategoryQuery
   def query_terms
     term = "%#{@query}%"
     [term, term, term]
+  end
+
+  def movie_query_terms
+    term = "%#{@query}%"
+    [term, term]
   end
 
   def category_search_sql
