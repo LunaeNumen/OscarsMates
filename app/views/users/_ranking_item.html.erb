@@ -38,7 +38,7 @@
       <% end %>
     </div>
 
-    <%= link_to user_path(user), class: "ranking-user-name", data: { ranking_filter_target: "userName" } do %>
+    <%= link_to user_path(user), class: "ranking-user-name", data: { ranking_filter_target: "userName" }, title: user.name do %>
       <%= user.name %>
     <% end %>
   </div>

@@ -65,7 +65,18 @@
       <%# Show mates' votes count on Categories page %>
       <div class="movie-rating-left">
         <i data-lucide="users" class="text-muted"></i>
-        <span><%= pick_count %> <%= pick_count == 1 ? "mate's vote" : "mates' votes" %></span>
+        <% if pick_count.zero? %>
+          <span class="text-muted">–</span>
+        <% else %>
+          <span><%= pick_count %> <%= pick_count == 1 ? "mate's vote" : "mates' votes" %></span>
+        <% end %>
+      </div>
+    <% elsif sort_by == 'most_nominated' %>
+      <%# Show nominations count when sorting by nominations %>
+      <div class="movie-rating-left">
+        <% nom_count = movie['nominations_count']&.to_i || 0 %>
+        <i data-lucide="trophy" class="text-muted"></i>
+        <span><%= nom_count %> <%= 'nomination'.pluralize(nom_count) %></span>
       </div>
     <% elsif sort_by == 'most_nominated' %>
       <%# Show nominations count when sorting by nominations %>

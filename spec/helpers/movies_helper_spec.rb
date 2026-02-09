@@ -5,17 +5,15 @@ RSpec.describe MoviesHelper, type: :helper do
   let(:movie_no_reviews) { create(:movie, title: 'movie_no_review') }
   let(:movie_with_reviews) { create(:movie, title: 'movie_with_reviews') }
   let(:user) { create(:user) }
-  let!(:nomination_no_reviews) { create(:nomination, movie: movie_no_reviews, category: category, year: 2025) }
-  let!(:nomination_with_reviews) { create(:nomination, movie: movie_with_reviews, category: category, year: 2025) }
+  let(:year) { 2099 }
+  let!(:nomination_no_reviews) { create(:nomination, movie: movie_no_reviews, category: category, year: year) }
+  let!(:nomination_with_reviews) { create(:nomination, movie: movie_with_reviews, category: category, year: year) }
   let!(:review) { create(:review, movie: movie_with_reviews, user: user, stars: 5) }
 
   # Define current_year as helper uses it from controller
-  def current_year
-    2025
-  end
-
   before do
-    helper.define_singleton_method(:current_year) { 2025 }
+    current_year_value = year
+    helper.define_singleton_method(:current_year) { current_year_value }
   end
 
   describe '#average_stars' do
@@ -51,12 +49,12 @@ RSpec.describe MoviesHelper, type: :helper do
       expect(helper.sort_label('')).to eq('A-Z')
     end
 
-    it 'returns "My Rating" for my_rating' do
-      expect(helper.sort_label('my_rating')).to eq('My Rating')
+    it 'returns "My rating" for my_rating' do
+      expect(helper.sort_label('my_rating')).to eq('My rating')
     end
 
-    it 'returns "IMDB" for imdb_rating' do
-      expect(helper.sort_label('imdb_rating')).to eq('IMDB')
+    it 'returns "IMDB rating" for imdb_rating' do
+      expect(helper.sort_label('imdb_rating')).to eq('IMDB rating')
     end
 
     it 'returns "Longest" for duration' do
@@ -67,12 +65,12 @@ RSpec.describe MoviesHelper, type: :helper do
       expect(helper.sort_label('shortest')).to eq('Shortest')
     end
 
-    it 'returns "Mates" for watched_by_mates' do
-      expect(helper.sort_label('watched_by_mates')).to eq('Mates')
+    it 'returns "Mates\' rating" for watched_by_mates' do
+      expect(helper.sort_label('watched_by_mates')).to eq("Mates' rating")
     end
 
-    it 'returns "Most Watched" for most_watched_by_mates' do
-      expect(helper.sort_label('most_watched_by_mates')).to eq('Most Watched')
+    it 'returns "Most watched" for most_watched_by_mates' do
+      expect(helper.sort_label('most_watched_by_mates')).to eq('Most watched')
     end
 
     it 'returns "Nominations" for most_nominated' do
