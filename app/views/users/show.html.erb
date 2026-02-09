@@ -90,7 +90,9 @@
                 <div class="profile-movie-info">
                   <div class="profile-movie-title">
                     <%= link_to review.movie.title, movie_path(year: current_year, id: review.movie.id) %>
-                    <span class="text-gold"><%= render_stars(review.stars) %></span>
+                  </div>
+                  <div class="mt-1">
+                    <%= render "shared/mate_rating", rating: review.stars, size: :sm %>
                   </div>
                   <div class="text-sm text-muted">
                     Watched on:
@@ -133,14 +135,5 @@
       <% end %>
     </div>
 
-    <%# Danger Zone %>
-    <% if current_user?(@user) %>
-      <div class="profile-danger-zone mt-8">
-        <%= link_to user_path(@user), class: "btn-danger btn-sm",
-              data: { turbo_method: :delete, turbo_confirm: "Permanently delete your account?!" } do %>
-          <i data-lucide="trash-2"></i> Delete Account
-        <% end %>
-      </div>
-    <% end %>
   </div>
 </main>

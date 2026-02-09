@@ -29,7 +29,9 @@ class ListMoviesQuery
   end
 
   def search_movies
-    @results = @results.where('title LIKE ?', "%#{query.downcase}%")
+    sanitized = ActiveRecord::Base.sanitize_sql_like(query)
+    query_term = "%#{sanitized}%"
+    @results = @results.where('title LIKE ? OR english_title LIKE ?', query_term, query_term)
   end
 
   def apply_filters
@@ -58,7 +60,7 @@ class ListMoviesQuery
   end
 
   def rated_movie_ids
-    user.reviews.where.not(stars: nil).select(:movie_id)
+    @rated_movie_ids ||= user.reviews.where.not(stars: nil).select(:movie_id)
   end
 
   def sort_movies

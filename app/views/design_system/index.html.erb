@@ -229,7 +229,7 @@
       <div class="mb-8 overflow-hidden rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
         <h3 class="mb-4 text-lg font-semibold text-slate-700">Font Family</h3>
         <p class="text-slate-600">
-          Primary typeface: Rubik (Google Fonts)<br>
+          Primary typeface: Poppins (Google Fonts)<br>
           <span class="text-sm text-slate-500">Available weights: 300, 400, 500, 600, 700, 800, 900</span>
         </p>
       </div>
@@ -775,6 +775,52 @@
 
         <div class="mt-4 text-sm text-slate-600">
           <p><strong>Classes:</strong> <code class="rounded bg-slate-100 px-2 py-0.5 text-xs">.star-rating</code>, <code class="rounded bg-slate-100 px-2 py-0.5 text-xs">.star</code>, <code class="rounded bg-slate-100 px-2 py-0.5 text-xs">.filled</code></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mate Rating Component -->
+    <section class="mb-16">
+      <h2 class="mb-8 text-2xl font-semibold text-slate-900">Mate Rating Component</h2>
+
+      <div class="overflow-hidden rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <h3 class="mb-4 text-lg font-semibold text-slate-700">Rating Display</h3>
+
+        <p class="mb-6 text-sm text-slate-600">
+          Used to display mate's ratings throughout the app (timeline, profile, etc.). Shows filled gold stars, empty grey stars, and "x/10" text.
+        </p>
+
+        <div class="space-y-6">
+          <div>
+            <p class="mb-2 text-sm text-slate-600">Large (Timeline):</p>
+            <%= render "shared/mate_rating", rating: 8, size: :lg %>
+          </div>
+
+          <div>
+            <p class="mb-2 text-sm text-slate-600">Medium (Default):</p>
+            <%= render "shared/mate_rating", rating: 7, size: :md %>
+          </div>
+
+          <div>
+            <p class="mb-2 text-sm text-slate-600">Small (Compact views):</p>
+            <%= render "shared/mate_rating", rating: 5, size: :sm %>
+          </div>
+
+          <div>
+            <p class="mb-2 text-sm text-slate-600">Without text:</p>
+            <%= render "shared/mate_rating", rating: 9, size: :md, show_text: false %>
+          </div>
+        </div>
+
+        <div class="mt-6 space-y-2 text-sm text-slate-600">
+          <p><strong>Usage:</strong> <code class="rounded bg-slate-100 px-2 py-0.5 text-xs">&lt;%= render "shared/mate_rating", rating: 8, size: :lg %&gt;</code></p>
+          <p><strong>Parameters:</strong></p>
+          <ul class="list-disc list-inside space-y-1 ml-2">
+            <li><code class="rounded bg-slate-100 px-2 py-0.5 text-xs">rating</code> - The numeric rating (1-10)</li>
+            <li><code class="rounded bg-slate-100 px-2 py-0.5 text-xs">size</code> - :sm, :md, :lg (optional, defaults to :md)</li>
+            <li><code class="rounded bg-slate-100 px-2 py-0.5 text-xs">show_text</code> - Whether to show "x/10" text (optional, defaults to true)</li>
+          </ul>
+          <p class="mt-3"><strong>Used in:</strong> Timeline, Mate profiles, Activity feeds</p>
         </div>
       </div>
     </section>

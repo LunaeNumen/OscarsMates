@@ -25,7 +25,7 @@ RSpec.describe 'Sessions', type: :request do
       it 'renders the login form with error' do
         post create_session_path, params: { email: user.email, password: 'wrongpassword' }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(response.body).to include('Invalid email/password combination!')
       end
     end
@@ -34,7 +34,7 @@ RSpec.describe 'Sessions', type: :request do
       it 'renders the login form with error' do
         post create_session_path, params: { email: 'nonexistent@example.com', password: 'password' }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end

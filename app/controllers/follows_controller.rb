@@ -7,7 +7,7 @@ class FollowsController < ApplicationController
       redirect_back_or_to(users_path, alert: "You are already following #{@user.name}.")
     else
       current_user.following << @user
-      redirect_back_or_to(users_path, notice: "You are now following  #{@user.name}.")
+      redirect_back_or_to(users_path, notice: "#{@user.name} has become your mate.")
     end
   end
 

@@ -41,4 +41,7 @@ Rails.application.routes.draw do
   post '/session', to: 'sessions#create', as: :create_session
   delete '/session', to: 'sessions#destroy', as: :destroy_session
   get 'signin' => 'sessions#new'
+
+  # Static pages
+  get 'about', to: 'pages#about', as: :about
 end

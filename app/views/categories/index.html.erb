@@ -23,15 +23,36 @@
         </div>
 
         <div class="categories-search-row flex flex-wrap items-center gap-3">
-          <form class="search-form" role="search" action="<%= categories_path(year: current_year) %>" method="get">
-            <i data-lucide="search" class="search-icon"></i>
-            <input class="search-input"
-                   type="search"
-                   name="query"
-                   placeholder="Search..."
-                   aria-label="Search"
-                   value="<%= params[:query] %>">
-          </form>
+          <div class="relative" data-controller="search">
+            <form class="search-form" role="search" action="<%= categories_path(year: current_year) %>" method="get">
+              <i data-lucide="search" class="search-icon"></i>
+              <input class="search-input"
+                     type="search"
+                     name="query"
+                     placeholder="Search categories or movies..."
+                     aria-label="Search"
+                     value="<%= params[:query] %>"
+                     data-search-target="input"
+                     data-action="input->search#onInput">
+              <button type="button"
+                      class="search-clear"
+                      data-search-target="clearBtn"
+                      data-action="click->search#clear"
+                      style="<%= 'display: none;' if params[:query].blank? %>">
+                <i data-lucide="x"></i>
+              </button>
+            </form>
+
+            <% if params[:query].present? && @categories.any? %>
+              <div class="search-results-count">
+                <% if @query_obj.matched_movies_count > 0 %>
+                  <%= pluralize(@query_obj.matched_movies_count, 'movie') %> in <%= pluralize(@categories.count, 'category', 'categories') %>
+                <% else %>
+                  <%= pluralize(@categories.count, 'category', 'categories') %> shown
+                <% end %>
+              </div>
+            <% end %>
+          </div>
 
           <% if current_user_admin? %>
             <%= link_to new_category_path(year: current_year), class: "btn-admin-add" do %>
@@ -64,7 +85,7 @@
                     <h2 class="category-title"><%= category.name %></h2>
                   </div>
                 </div>
-                <p class="text-base text-muted m-0 category-count-text"><%= pluralize(category_movies.count, 'movie') %></p>
+                <p class="text-base text-muted m-0 category-count-text"><%= pluralize(category_movies.count, 'nomination') %></p>
                 <div class="category-pick-info">
                   <% if current_user %>
                     <p class="text-base text-muted m-0 category-count-text">
