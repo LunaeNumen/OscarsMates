@@ -2,35 +2,49 @@
 // Run that command whenever you add a new controller or create them with
 // ./bin/rails generate stimulus controllerName
 
-import { application } from "./application";
-import HelloController from "./hello_controller";
-import ConfettiController from "./confetti_controller";
-import QuickRatingController from "./quick_rating_controller";
-import MovieCardController from "./movie_card_controller";
-import FlashController from "./flash_controller";
-import InfiniteScrollController from "./infinite_scroll_controller";
-import AvatarUploadController from "./avatar_upload_controller";
-import CategoryPickController from "./category_pick_controller";
-import RankingFilterController from "./ranking_filter_controller";
-import MenuController from "./menu_controller";
-import StarRatingController from "./star_rating_controller";
-import DatePickerController from "./date_picker_controller";
-import DeleteAccountController from "./delete_account_controller";
-import MovieSearchController from "./movie_search_controller";
-import CategorySearchController from "./category_search_controller";
+import { application } from "./application"
 
-application.register("hello", HelloController);
-application.register("confetti", ConfettiController);
-application.register("quick-rating", QuickRatingController);
-application.register("movie-card", MovieCardController);
-application.register("flash", FlashController);
-application.register("infinite-scroll", InfiniteScrollController);
-application.register("avatar-upload", AvatarUploadController);
-application.register("category-pick", CategoryPickController);
-application.register("ranking-filter", RankingFilterController);
-application.register("menu", MenuController);
-application.register("star-rating", StarRatingController);
-application.register("date-picker", DatePickerController);
-application.register("delete-account", DeleteAccountController);
-application.register("movie-search", MovieSearchController);
-application.register("category-search", CategorySearchController);
+import AvatarUploadController from "./avatar_upload_controller"
+application.register("avatar-upload", AvatarUploadController)
+
+import CategoryPickController from "./category_pick_controller"
+application.register("category-pick", CategoryPickController)
+
+import ChartController from "./chart_controller"
+application.register("chart", ChartController)
+
+import ConfettiController from "./confetti_controller"
+application.register("confetti", ConfettiController)
+
+import DatePickerController from "./date_picker_controller"
+application.register("date-picker", DatePickerController)
+
+import DeleteAccountController from "./delete_account_controller"
+application.register("delete-account", DeleteAccountController)
+
+import FlashController from "./flash_controller"
+application.register("flash", FlashController)
+
+import HelloController from "./hello_controller"
+application.register("hello", HelloController)
+
+import InfiniteScrollController from "./infinite_scroll_controller"
+application.register("infinite-scroll", InfiniteScrollController)
+
+import MenuController from "./menu_controller"
+application.register("menu", MenuController)
+
+import MovieCardController from "./movie_card_controller"
+application.register("movie-card", MovieCardController)
+
+import QuickRatingController from "./quick_rating_controller"
+application.register("quick-rating", QuickRatingController)
+
+import RankingFilterController from "./ranking_filter_controller"
+application.register("ranking-filter", RankingFilterController)
+
+import SearchController from "./search_controller"
+application.register("search", SearchController)
+
+import StarRatingController from "./star_rating_controller"
+application.register("star-rating", StarRatingController)

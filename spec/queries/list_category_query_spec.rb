@@ -62,6 +62,30 @@ RSpec.describe ListCategoryQuery do
         expect(result).to include(category1)
         expect(query.matched_movies_count).to eq(1)
       end
+
+      it 'escapes special LIKE characters (%) as literal characters' do
+        movie_with_percent = create(:movie, title: '100% Wolf')
+        create(:nomination, movie: movie_with_percent, category: category1, year: year)
+
+        query = described_class.new({ query: '100%' }, year)
+
+        result = query.results
+
+        expect(result).to include(category1)
+        expect(query.matched_movies_count).to eq(1)
+      end
+
+      it 'escapes special LIKE characters (_) as literal characters' do
+        movie_with_underscore = create(:movie, title: 'S_pecial Movie')
+        create(:nomination, movie: movie_with_underscore, category: category2, year: year)
+
+        query = described_class.new({ query: 'S_pecial' }, year)
+
+        result = query.results
+
+        expect(result).to include(category2)
+        expect(query.matched_movies_count).to eq(1)
+      end
     end
 
     context 'when no categories match' do

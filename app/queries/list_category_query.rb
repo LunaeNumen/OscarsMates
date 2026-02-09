@@ -32,12 +32,14 @@ class ListCategoryQuery
   end
 
   def query_terms
-    term = "%#{@query}%"
+    sanitized = ActiveRecord::Base.sanitize_sql_like(@query)
+    term = "%#{sanitized}%"
     [term, term, term]
   end
 
   def movie_query_terms
-    term = "%#{@query}%"
+    sanitized = ActiveRecord::Base.sanitize_sql_like(@query)
+    term = "%#{sanitized}%"
     [term, term]
   end
 
