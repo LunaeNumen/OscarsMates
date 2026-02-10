@@ -88,7 +88,7 @@ class MoviesController < ApplicationController
   end
 
   def search_movies
-    @movies = @movies.where('title LIKE ?', "%#{params[:query]}%")
+    @movies = @movies.where('title LIKE ? OR english_title LIKE ?', "%#{params[:query]}%", "%#{params[:query]}%")
   end
 
   def calculate_progress

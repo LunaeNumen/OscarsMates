@@ -1,49 +1,49 @@
-<section class="user-form py-10">
-  <div class="container mx-auto px-4">
-    <div class="mx-auto max-w-2xl">
-    <%= form_with model: user, url: user.persisted? ? user_path(user) : users_path, local: true, class: "space-y-6" do |form| %>
-      <%= render "shared/errors", object: user %>
+<%= form_with model: user, url: user.persisted? ? user_path(user) : users_path, local: true, class: "space-y-4" do |form| %>
+  <%= render "shared/errors", object: user %>
 
-      <div class="grid gap-6 md:grid-cols-2">
-        <div>
-          <%= form.label :name %>
-          <%= form.text_field :name, id: "name", class: "mt-2 w-full", placeholder: "Name" %>
-          <% user.errors.full_messages_for(:name).each do |message| %>
-            <div class="mt-2 text-sm text-red-600"><%= message %></div>
-          <% end %>
-        </div>
+  <div class="grid gap-4 md:grid-cols-2">
+    <div>
+      <%= form.label :name %>
+      <%= form.text_field :name, class: "mt-2 w-full", placeholder: "Name" %>
+      <% user.errors.full_messages_for(:name).each do |message| %>
+        <div class="mt-2 text-sm text-red-600"><%= message %></div>
+      <% end %>
+    </div>
 
-        <div>
-          <%= form.label :email %>
-          <%= form.email_field :email, id: "email", class: "mt-2 w-full", placeholder: "Email" %>
-          <% user.errors.full_messages_for(:email).each do |message| %>
-            <div class="mt-2 text-sm text-red-600"><%= message %></div>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="grid gap-6 md:grid-cols-2">
-        <div>
-          <%= form.label :password %>
-          <%= form.password_field :password, id: "password", class: "mt-2 w-full", placeholder: "Password" %>
-          <% user.errors.full_messages_for(:password).each do |message| %>
-            <div class="mt-2 text-sm text-red-600"><%= message %></div>
-          <% end %>
-        </div>
-
-        <div>
-          <%= form.label :password_confirmation %>
-          <%= form.password_field :password_confirmation, id: "password_confirmation", class: "mt-2 w-full", placeholder: "Password Confirmation" %>
-          <% user.errors.full_messages_for(:password_confirmation).each do |message| %>
-            <div class="mt-2 text-sm text-red-600"><%= message %></div>
-          <% end %>
-        </div>
-      </div>
-
-      <div>
-        <%= form.submit user.new_record? ? 'Sign up!' : 'Update Account', class: 'btn-oscar w-full' %>
-      </div>
-    <% end %>
+    <div>
+      <%= form.label :email %>
+      <%= form.email_field :email, class: "mt-2 w-full", placeholder: "Email" %>
+      <% user.errors.full_messages_for(:email).each do |message| %>
+        <div class="mt-2 text-sm text-red-600"><%= message %></div>
+      <% end %>
     </div>
   </div>
-</section>
+
+  <div class="grid gap-4 md:grid-cols-2">
+    <div>
+      <%= form.label :password %>
+      <%= form.password_field :password, class: "mt-2 w-full", placeholder: user.persisted? ? "Leave blank to keep current password" : "Password" %>
+      <% if user.persisted? %>
+        <p class="mt-1 text-xs text-slate-500">Leave blank to keep current password</p>
+      <% end %>
+      <% user.errors.full_messages_for(:password).each do |message| %>
+        <div class="mt-2 text-sm text-red-600"><%= message %></div>
+      <% end %>
+    </div>
+
+    <div>
+      <%= form.label :password_confirmation, "Password Confirmation" %>
+      <%= form.password_field :password_confirmation, class: "mt-2 w-full", placeholder: "Password Confirmation" %>
+      <% user.errors.full_messages_for(:password_confirmation).each do |message| %>
+        <div class="mt-2 text-sm text-red-600"><%= message %></div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="flex items-center <%= user.new_record? ? 'justify-end' : 'justify-between' %> pt-2">
+    <% unless user.new_record? %>
+      <%= link_to 'Cancel', user_path(user), class: 'btn-outline-oscar' %>
+    <% end %>
+    <%= form.submit user.new_record? ? 'Sign up!' : 'Update Account', class: user.new_record? ? 'btn-oscar w-full' : 'btn-oscar' %>
+  </div>
+<% end %>

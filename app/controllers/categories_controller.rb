@@ -3,17 +3,23 @@ class CategoriesController < ApplicationController
   before_action :require_admin, only: %i[new create edit update destroy]
   before_action :set_category, only: %i[show edit update destroy]
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def index
-    @categories = ListCategoryQuery.new(params, current_year).results
+    @query_obj = ListCategoryQuery.new(params, current_year)
+    @categories = @query_obj.results
     @user_reviews = current_user ? current_user.reviews.index_by(&:movie_id) : {}
     @user_picks = current_user ? current_user.user_picks.where(year: current_year).index_by(&:category_id) : {}
 
     # Preload movies by category for the current year to prevent N+1 queries
+    # Keep duplicates - a movie with multiple nominations in the same category should appear multiple times
     nominations = Nomination.where(year: current_year, category_id: @categories.select(:id))
                             .includes(movie: :reviews)
     @category_movies = nominations.group_by(&:category_id).transform_values do |noms|
-      noms.map(&:movie).uniq
+      movies = noms.map(&:movie)
+      next movies if params[:query].blank?
+
+      query_lower = params[:query].downcase
+      movies.select { |m| m.title.downcase.include?(query_lower) || m.english_title&.downcase&.include?(query_lower) }
     end
 
     # Get pick counts per category/movie from users the current user follows
@@ -31,7 +37,7 @@ class CategoriesController < ApplicationController
     @days_until_ceremony = (@ceremony_date - Time.zone.today).to_i
     @categories_count = @categories.count - @user_picks.count
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def show
     @category = Category.find(params[:id])

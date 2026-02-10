@@ -41,4 +41,13 @@ Rails.application.routes.draw do
   post '/session', to: 'sessions#create', as: :create_session
   delete '/session', to: 'sessions#destroy', as: :destroy_session
   get 'signin' => 'sessions#new'
+
+  # Static pages
+  get 'about', to: 'pages#about', as: :about
+
+  # Feedback forms
+  get 'report-bug', to: 'feedback#report_bug', as: :report_bug
+  post 'report-bug', to: 'feedback#submit_bug'
+  get 'request-feature', to: 'feedback#request_feature', as: :request_feature
+  post 'request-feature', to: 'feedback#submit_feature'
 end

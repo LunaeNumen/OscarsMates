@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 322.4 322.4">
+  <defs>
+    <style>
+      .st0 {
+        fill: #c9a32d;
+      }
+
+      .st1 {
+        fill: #fff;
+      }
+
+      /* Seed stage - small circle */
+      #seed {
+        transform-origin: center;
+        animation: seedAnimation 8s ease-in-out infinite;
+      }
+
+      /* Popcorn without eyes */
+      #popcorn-stage {
+        opacity: 0;
+        transform-origin: center;
+        animation: popcornAnimation 8s ease-in-out infinite;
+      }
+
+      /* Popcorn base for smiley stage - stays still */
+      #popcorn-base {
+        opacity: 0;
+        transform-origin: center;
+        animation: popcornBaseAnimation 8s ease-in-out infinite;
+      }
+
+      /* Individual smileys pop in one by one */
+      #smiley1 {
+        opacity: 0;
+        transform-origin: center;
+        animation: smiley1Animation 8s ease-in-out infinite;
+      }
+
+      #smiley2 {
+        opacity: 0;
+        transform-origin: center;
+        animation: smiley2Animation 8s ease-in-out infinite;
+      }
+
+      #smiley3 {
+        opacity: 0;
+        transform-origin: center;
+        animation: smiley3Animation 8s ease-in-out infinite;
+      }
+
+      /* Seed: tremble faster 2x (0-1s), then BLOW UP */
+      @keyframes seedAnimation {
+        0% { opacity: 1; transform: translate(0, 0) scale(1); }
+        3% { transform: translate(-4px, 0) scale(1.05); }
+        5% { transform: translate(4px, 0) scale(0.95); }
+        7% { transform: translate(-4px, 0) scale(1.05); }
+        9% { transform: translate(4px, 0) scale(0.95); }
+        11% { transform: translate(-3px, 0) scale(1.1); }
+        12% { transform: translate(3px, 0) scale(0.9); }
+        12.5% { opacity: 1; transform: scale(1); }
+        /* BLOW UP - explosion to full size */
+        13.75% { opacity: 1; transform: scale(0.2); }
+        15% { opacity: 0; transform: scale(3); }
+        100% { opacity: 0; }
+      }
+
+      /* Popcorn: explodes in from seed */
+      @keyframes popcornAnimation {
+        0%, 13.75% { opacity: 0; transform: scale(0.2); }
+        15% { opacity: 1; transform: scale(1.2); }
+        17.5% { opacity: 1; transform: scale(1); }
+        42.5% { opacity: 1; transform: scale(1); }
+        43.75% { opacity: 0; }
+        100% { opacity: 0; }
+      }
+
+      /* Popcorn base appears, stays still, rotates, shrinks */
+      @keyframes popcornBaseAnimation {
+        0%, 42.5% { opacity: 0; }
+        43.75% { opacity: 1; transform: scale(1) rotate(0deg); }
+        62.5% { opacity: 1; transform: scale(1) rotate(0deg); }
+        /* Rotate for 2 seconds */
+        87.5% { opacity: 1; transform: scale(1) rotate(360deg); }
+        /* Shrink */
+        92.5% { opacity: 0; transform: scale(0) rotate(360deg); }
+        100% { opacity: 0; }
+      }
+
+      /* Smiley 1 pops in first */
+      @keyframes smiley1Animation {
+        0%, 43.75% { opacity: 0; transform: scale(0) rotate(0deg); }
+        45% { opacity: 1; transform: scale(1.3) rotate(0deg); }
+        46.25% { opacity: 1; transform: scale(1) rotate(0deg); }
+        62.5% { opacity: 1; transform: scale(1) rotate(0deg); }
+        /* Rotate for 2 seconds */
+        87.5% { opacity: 1; transform: scale(1) rotate(360deg); }
+        /* Shrink */
+        92.5% { opacity: 0; transform: scale(0) rotate(360deg); }
+        100% { opacity: 0; }
+      }
+
+      /* Smiley 2 pops in second */
+      @keyframes smiley2Animation {
+        0%, 46.25% { opacity: 0; transform: scale(0) rotate(0deg); }
+        47.5% { opacity: 1; transform: scale(1.3) rotate(0deg); }
+        48.75% { opacity: 1; transform: scale(1) rotate(0deg); }
+        62.5% { opacity: 1; transform: scale(1) rotate(0deg); }
+        /* Rotate for 2 seconds */
+        87.5% { opacity: 1; transform: scale(1) rotate(360deg); }
+        /* Shrink */
+        92.5% { opacity: 0; transform: scale(0) rotate(360deg); }
+        100% { opacity: 0; }
+      }
+
+      /* Smiley 3 pops in third */
+      @keyframes smiley3Animation {
+        0%, 48.75% { opacity: 0; transform: scale(0) rotate(0deg); }
+        50% { opacity: 1; transform: scale(1.3) rotate(0deg); }
+        51.25% { opacity: 1; transform: scale(1) rotate(0deg); }
+        62.5% { opacity: 1; transform: scale(1) rotate(0deg); }
+        /* Rotate for 2 seconds */
+        87.5% { opacity: 1; transform: scale(1) rotate(360deg); }
+        /* Shrink */
+        92.5% { opacity: 0; transform: scale(0) rotate(360deg); }
+        100% { opacity: 0; }
+      }
+    </style>
+  </defs>
+
+  <!-- Stage 1: Seed (small circle) -->
+  <g id="seed">
+    <circle class="st0" cx="161.2" cy="161.2" r="15"/>
+  </g>
+
+  <!-- Stage 2: Popcorn without eyes -->
+  <g id="popcorn-stage">
+    <path class="st1" d="M254.3,175c0-12-5.1-22.8-13.2-30.5,1-3.6,1.6-7.5,1.6-11.4,0-23.1-18.8-41.9-41.9-41.9s-2,0-2.9.1c-7.3-12.1-20.6-20.3-35.8-20.3s-28.5,8.1-35.8,20.3c-1,0-1.9-.1-2.9-.1-23.1,0-41.9,18.8-41.9,41.9s.5,6.9,1.3,10.1c-9,7.7-14.6,19.1-14.6,31.8,0,18.4,11.9,34.1,28.5,39.7,2,21.3,19.9,37.9,41.7,37.9s17.1-2.8,23.9-7.5c6.8,4.7,15,7.5,23.9,7.5,22,0,40-17,41.7-38.6,15.6-6.1,26.7-21.2,26.7-39Z"/>
+    <path class="st0" d="M248.7,142.4c.6-3.1.9-6.2.9-9.3,0-26.7-21.5-48.4-48.1-48.8-9.2-12.7-23.6-20.1-39.4-20.1s-30.2,7.4-39.4,20.1c-26.6.4-48.1,22.1-48.1,48.8s.2,5.1.6,7.7c-9,9.1-14,21.3-14,34.2,0,19.4,11.5,36.8,29.1,44.6,4.2,23,24.1,39.9,47.9,39.9s16.6-2.1,23.9-6.3c7.3,4.1,15.4,6.3,23.9,6.3,23.8,0,44.2-17.6,48.1-40.7,16.7-8.2,27.2-24.9,27.2-43.7s-4.4-23.6-12.5-32.6ZM225.2,207.6c-2.4,1-4.1,3.2-4.3,5.8-1.4,18.1-16.8,32.3-34.9,32.3s-14.1-2.2-20-6.3c-1.2-.8-2.5-1.2-3.9-1.2s-2.7.4-3.9,1.2c-5.9,4.1-12.8,6.3-20,6.3-18.2,0-33.2-13.6-34.9-31.7-.3-2.7-2.1-5-4.6-5.9-14.2-4.8-23.8-18.2-23.8-33.2s4.5-19.9,12.3-26.6c2-1.7,2.8-4.3,2.2-6.9-.7-2.9-1.1-5.7-1.1-8.5,0-19.3,15.7-35,35-35s1.3,0,2,.1h.4c2.6.2,5-1.1,6.3-3.3,6.4-10.6,17.6-17,30-17s23.5,6.3,30,17c1.3,2.2,3.8,3.5,6.3,3.3h.4c.7,0,1.3-.1,2-.1,19.3,0,35,15.7,35,35s-.5,6.4-1.4,9.5c-.7,2.5,0,5.1,1.9,6.9,7.1,6.7,11.1,15.8,11.1,25.5,0,14.5-8.8,27.3-22.3,32.6Z"/>
+    <path class="st0" d="M192,114.1c-3-2.3-7.3-1.6-9.6,1.4-10,13.5-29.1,16.3-42.5,6.3-3-2.3-7.3-1.6-9.6,1.4-2.3,3-1.6,7.3,1.4,9.6,7.9,5.8,17.1,8.7,26.2,8.7,13.5,0,26.9-6.2,35.5-17.8,2.3-3,1.6-7.3-1.4-9.6Z"/>
+    <path class="st0" d="M208.8,196.6c-12.3-4.3-22.1-13.2-27.7-25-5.6-11.8-6.3-25-2-37.3,1.3-3.6-.6-7.5-4.2-8.8-3.6-1.3-7.5.6-8.8,4.2-5.6,15.7-4.7,32.7,2.5,47.7,7.2,15.1,19.8,26.4,35.5,32,.8.3,1.5.4,2.3.4,2.8,0,5.5-1.8,6.5-4.6,1.3-3.6-.6-7.5-4.2-8.8Z"/>
+    <path class="st0" d="M125.7,142.5c-3.8-.5-7.2,2.1-7.7,5.9-.5,3.8,2.1,7.2,5.9,7.7,30.9,4.2,52.6,32.7,48.5,63.6-.5,3.8,2.1,7.2,5.9,7.7.3,0,.6,0,.9,0,3.4,0,6.3-2.5,6.8-5.9,5.2-38.4-21.8-73.8-60.2-79Z"/>
+  </g>
+
+  <!-- Stage 3: Popcorn base (stays still) -->
+  <g id="popcorn-base">
+    <path class="st1" d="M254.3,175c0-12-5.1-22.8-13.2-30.5,1-3.6,1.6-7.5,1.6-11.4,0-23.1-18.8-41.9-41.9-41.9s-2,0-2.9.1c-7.3-12.1-20.6-20.3-35.8-20.3s-28.5,8.1-35.8,20.3c-1,0-1.9-.1-2.9-.1-23.1,0-41.9,18.8-41.9,41.9s.5,6.9,1.3,10.1c-9,7.7-14.6,19.1-14.6,31.8,0,18.4,11.9,34.1,28.5,39.7,2,21.3,19.9,37.9,41.7,37.9s17.1-2.8,23.9-7.5c6.8,4.7,15,7.5,23.9,7.5,22,0,40-17,41.7-38.6,15.6-6.1,26.7-21.2,26.7-39Z"/>
+    <path class="st0" d="M248.7,142.4c.6-3.1.9-6.2.9-9.3,0-26.7-21.5-48.4-48.1-48.8-9.2-12.7-23.6-20.1-39.4-20.1s-30.2,7.4-39.4,20.1c-26.6.4-48.1,22.1-48.1,48.8s.2,5.1.6,7.7c-9,9.1-14,21.3-14,34.2,0,19.4,11.5,36.8,29.1,44.6,4.2,23,24.1,39.9,47.9,39.9s16.6-2.1,23.9-6.3c7.3,4.1,15.4,6.3,23.9,6.3,23.8,0,44.2-17.6,48.1-40.7,16.7-8.2,27.2-24.9,27.2-43.7s-4.4-23.6-12.5-32.6ZM225.2,207.6c-2.4,1-4.1,3.2-4.3,5.8-1.4,18.1-16.8,32.3-34.9,32.3s-14.1-2.2-20-6.3c-1.2-.8-2.5-1.2-3.9-1.2s-2.7.4-3.9,1.2c-5.9,4.1-12.8,6.3-20,6.3-18.2,0-33.2-13.6-34.9-31.7-.3-2.7-2.1-5-4.6-5.9-14.2-4.8-23.8-18.2-23.8-33.2s4.5-19.9,12.3-26.6c2-1.7,2.8-4.3,2.2-6.9-.7-2.9-1.1-5.7-1.1-8.5,0-19.3,15.7-35,35-35s1.3,0,2,.1h.4c2.6.2,5-1.1,6.3-3.3,6.4-10.6,17.6-17,30-17s23.5,6.3,30,17c1.3,2.2,3.8,3.5,6.3,3.3h.4c.7,0,1.3-.1,2-.1,19.3,0,35,15.7,35,35s-.5,6.4-1.4,9.5c-.7,2.5,0,5.1,1.9,6.9,7.1,6.7,11.1,15.8,11.1,25.5,0,14.5-8.8,27.3-22.3,32.6Z"/>
+  </g>
+
+  <!-- Smiley 1: Main center smile (pops first) -->
+  <g id="smiley1">
+    <path class="st0" d="M192,114.1c-3-2.3-7.3-1.6-9.6,1.4-10,13.5-29.1,16.3-42.5,6.3-3-2.3-7.3-1.6-9.6,1.4-2.3,3-1.6,7.3,1.4,9.6,7.9,5.8,17.1,8.7,26.2,8.7,13.5,0,26.9-6.2,35.5-17.8,2.3-3,1.6-7.3-1.4-9.6Z"/>
+    <path class="st0" d="M152.3,120.2c.6,0,1.2-.1,1.8-.3,2.7-1,4-4,3-6.6-3.3-8.6,0-17,0-17.2,1-2.6-.2-5.6-2.9-6.7-2.6-1.1-5.6.2-6.7,2.9-.2.5-4.8,12.2,0,24.6.8,2.1,2.7,3.3,4.8,3.3Z"/>
+    <path class="st0" d="M167.8,120.2c.6,0,1.2-.1,1.8-.3,2.7-1,4-4,3-6.6-3.3-8.6,0-17,0-17.2,1-2.6-.2-5.6-2.9-6.7-2.6-1.1-5.6.2-6.7,2.9-.2.5-4.8,12.2,0,24.6.8,2.1,2.7,3.3,4.8,3.3Z"/>
+  </g>
+
+  <!-- Smiley 2: Right side smile (pops second) -->
+  <g id="smiley2">
+    <path class="st0" d="M208.8,196.6c-12.3-4.3-22.1-13.2-27.7-25-5.6-11.8-6.3-25-2-37.3,1.3-3.6-.6-7.5-4.2-8.8-3.6-1.3-7.5.6-8.8,4.2-5.6,15.7-4.7,32.7,2.5,47.7,7.2,15.1,19.8,26.4,35.5,32,.8.3,1.5.4,2.3.4,2.8,0,5.5-1.8,6.5-4.6,1.3-3.6-.6-7.5-4.2-8.8Z"/>
+    <path class="st0" d="M196.1,155.4c1.2,0,2.5-.4,3.4-1.3,8.4-7.6,19.4-7.7,19.7-7.7h0c2.8,0,5.1-2.3,5.1-5.1,0-2.8-2.2-5.2-5.1-5.2-.7,0-15.2,0-26.7,10.3-2.1,1.9-2.3,5.2-.4,7.3,1,1.1,2.4,1.7,3.8,1.7Z"/>
+    <path class="st0" d="M226,153.4c-.5,0-15.1,0-26.6,10.3-2.1,1.9-2.3,5.2-.4,7.3,1,1.1,2.4,1.7,3.8,1.7s2.5-.4,3.4-1.3c8.4-7.6,19.5-7.7,19.7-7.7,2.9-.1,5.1-2.2,5.2-5.1,0-2.8-2.2-5.2-5.1-5.2Z"/>
+  </g>
+
+  <!-- Smiley 3: Left side smile (pops third) -->
+  <g id="smiley3">
+    <path class="st0" d="M125.7,142.5c-3.8-.5-7.2,2.1-7.7,5.9-.5,3.8,2.1,7.2,5.9,7.7,30.9,4.2,52.6,32.7,48.5,63.6-.5,3.8,2.1,7.2,5.9,7.7.3,0,.6,0,.9,0,3.4,0,6.3-2.5,6.8-5.9,5.2-38.4-21.8-73.8-60.2-79Z"/>
+    <path class="st0" d="M145.7,194.1c-13.4,12.1-30.9,12.1-31.1,12.1h0c-2.8,0-5.1,2.3-5.1,5.1,0,2.8,2.2,5.2,5.1,5.2h.1c2,0,22-.4,37.9-14.7,2.1-1.9,2.3-5.2.4-7.3-1.9-2.1-5.2-2.3-7.3-.4Z"/>
+    <path class="st0" d="M143,168.8c-1.9-2.1-5.1-2.3-7.3-.4-13.4,12.1-30.8,12-31.1,12.1h0c-2.8,0-5.1,2.3-5.1,5.1,0,2.8,2.2,5.2,5.1,5.2h.1c2,0,22-.4,37.9-14.7,2.1-1.9,2.3-5.2.4-7.3Z"/>
+  </g>
+</svg>

@@ -14,10 +14,10 @@ RSpec.describe 'User Registration', type: :system do
     it 'allows a new user to register' do
       visit signup_path
 
-      fill_in 'name', with: 'Test User'
-      fill_in 'email', with: 'testuser@example.com'
-      fill_in 'password', with: 'password123'
-      fill_in 'password_confirmation', with: 'password123'
+      fill_in 'Name', with: 'Test User'
+      fill_in 'Email', with: 'testuser@example.com'
+      fill_in 'Password', with: 'password123'
+      fill_in 'Password Confirmation', with: 'password123'
       click_button 'Sign up!'
 
       expect(page).to have_content('Thanks for signing up!')
@@ -26,10 +26,10 @@ RSpec.describe 'User Registration', type: :system do
     it 'shows validation errors for invalid registration' do
       visit signup_path
 
-      fill_in 'name', with: ''
-      fill_in 'email', with: 'invalid'
-      fill_in 'password', with: 'short'
-      fill_in 'password_confirmation', with: 'different'
+      fill_in 'Name', with: ''
+      fill_in 'Email', with: 'invalid'
+      fill_in 'Password', with: 'short'
+      fill_in 'Password Confirmation', with: 'different'
       click_button 'Sign up!'
 
       expect(page).to have_content("can't be blank")

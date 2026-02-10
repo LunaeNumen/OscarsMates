@@ -29,6 +29,9 @@ const initLucideIcons = () => {
   });
 };
 
+// Expose lucide to window for controllers to use
+window.lucide = { createIcons: initLucideIcons };
+
 document.addEventListener("turbo:render", initPreline);
 document.addEventListener("turbo:load", initPreline);
 document.addEventListener("turbo:render", initLucideIcons);

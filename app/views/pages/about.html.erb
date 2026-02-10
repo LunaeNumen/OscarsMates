@@ -1,0 +1,82 @@
+<div class="movies-page">
+  <section>
+    <div class="container mx-auto px-4">
+      <div class="mx-auto max-w-4xl">
+        <h1 class="text-center text-4xl font-bold text-slate-900 mb-8">About OscarsMates</h1>
+
+        <div class="prose prose-lg mx-auto text-slate-700 space-y-6">
+          <p class="text-xl text-slate-600 italic text-center mb-12">
+            A story of friendship, competition, and learning to code.
+          </p>
+
+          <div class="flex justify-center my-12">
+            <%= image_tag 'popcorn-animation.svg', alt: 'Friends enjoying movies together', class: 'w-full max-w-sm' %>
+          </div>
+
+          <p>
+            Every year, when the Academy Awards nominations are announced, something magical happens. A group of friends gathers, ready to embark on their annual tradition: the Oscars competition. Armed with popcorn, opinions, and an unwavering commitment to predicting the winners, they transform the award season into their own friendly rivalry.
+          </p>
+
+          <p>
+            It started simply enough—a casual bet here, a heated debate about Best Picture there. But as the years went by, the tradition grew. Spreadsheets were created, predictions were tracked, and bragging rights became the most coveted prize of all. The competition wasn't just about who could predict the most winners; it was about the discussions, the movie marathons, and the shared excitement that brought everyone together.
+          </p>
+
+          <p>
+            Then came the challenge: managing all those predictions, tracking who watched what, remembering who said what about which film. The spreadsheets became unwieldy. The group chat was a mess of predictions and reactions. Someone needed to build something better.
+          </p>
+
+          <p>
+            Enter Natelia, a young developer with a dream and a problem to solve. She wanted to learn programming, really learn it—not just tutorials and toy projects, but by building something real, something meaningful. And what could be more meaningful than creating a platform for her friends' beloved tradition?
+          </p>
+
+          <p>
+            Late nights turned into early mornings as Natelia dove into Ruby on Rails, wrestling with databases, debugging mysterious errors, and slowly bringing OscarsMates to life. Each feature was born from real needs: "We need to track who's watched what," someone would say. "Can we see each other's reviews?" another would ask. "What about our prediction history from previous years?"
+          </p>
+
+          <p>
+            What started as a learning project became something more—a digital home for a community of movie lovers. A place where friends could share their thoughts, track their viewing progress, make their predictions, and celebrate (or lament) their results together. No more scattered spreadsheets, no more lost predictions in endless chat histories.
+          </p>
+
+          <p>
+            Today, OscarsMates stands as a testament to what happens when passion meets purpose. It's not just an app; it's the digital embodiment of those yearly gatherings, those heated debates, and those moments of joy when your underdog pick actually wins. It's a reminder that the best projects are born from real needs and built with love.
+          </p>
+
+          <p>
+            So whether you're a casual movie fan or a devoted Oscar completist, whether you're here to compete or just to keep track of what you've watched, welcome. You're not just using an app—you're joining a tradition that started with a group of friends and a young developer who decided to turn a challenge into an opportunity.
+          </p>
+
+          <p class="text-center font-bold italic mt-12" style="color: var(--oscar-gold);">
+            Here's to friendship, movies, and the joy of building something together.
+          </p>
+
+          <div class="flex justify-center mt-8">
+            <%= image_tag 'popcorn-clink.svg', alt: 'Cheers!', class: 'w-96' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<%# Footer %>
+<footer class="footer" style="background-color: var(--oscar-gold-dark); margin-top: 60px;">
+  <div class="footer-content">
+    <%# Left column - All links %>
+    <div class="footer-links">
+      <%= link_to "About", about_path, class: "footer-link" %>
+      <%= link_to "Report bug", report_bug_path, class: "footer-link" %>
+      <%= link_to "Request a feature", request_feature_path, class: "footer-link" %>
+      <%= link_to "GitHub", "https://github.com/natelia/OscarsMates", class: "footer-link", target: "_blank", rel: "noopener noreferrer" %>
+    </div>
+
+    <%# Center - Logo %>
+    <div class="footer-logo">
+      <%= image_tag 'logo_hands_h-01.svg', alt: 'Oscars Mates Logo', class: 'h-64 w-auto' %>
+    </div>
+
+    <%# Right column - Bubble image %>
+    <div class="footer-bubble">
+      <%= image_tag 'love.svg', alt: 'Love what we do', class: 'footer-bubble-image' %>
+    </div>
+  </div>
+</footer>
