@@ -18,7 +18,7 @@ export default class extends Controller {
     window.removeEventListener('resize', this.boundReposition)
   }
 
-  handleFocus(event) {
+  handleFocus(_event) {
     this.openDropdown()
   }
 

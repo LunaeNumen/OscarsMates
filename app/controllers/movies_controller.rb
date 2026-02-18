@@ -1,5 +1,6 @@
 # MoviesController handles the CRUD operations for movies in the application.
 # It allows users to view movies and admins to create, update, and delete movies.
+# rubocop:disable Metrics/ClassLength
 class MoviesController < ApplicationController
   before_action :ensure_year_selected
   before_action :require_signin, except: %i[index show]
@@ -141,3 +142,4 @@ class MoviesController < ApplicationController
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

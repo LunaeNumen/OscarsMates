@@ -59,11 +59,11 @@ class Movie < ApplicationRecord
   end
 
   def streaming_services_array
-    where_to_watch.to_s.split(',').map(&:strip).reject(&:blank?)
+    where_to_watch.to_s.split(',').map(&:strip).compact_blank
   end
 
   def streaming_services_array=(services)
-    self.where_to_watch = services.reject(&:blank?).join(', ')
+    self.where_to_watch = services.compact_blank.join(', ')
   end
 
   def self.streaming_service_url(service)
