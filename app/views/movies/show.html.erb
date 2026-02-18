@@ -5,9 +5,9 @@
       <%# Left: Movie Poster with Watch Overlay %>
       <div class="movie-poster-container">
         <%# Back Button - floating to the left %>
-        <button onclick="history.back()" class="back-button-movie-show" title="Go back">
+        <%= link_to @back_path, class: "back-button-movie-show", title: "Go back" do %>
           <i data-lucide="arrow-left" style="color: var(--text-tertiary);"></i>
-        </button>
+        <% end %>
         <div class="movie-card <%= 'is-watched' if @review&.stars.present? %>"
              data-controller="movie-card"
              data-movie-id="<%= @movie.id %>"
@@ -15,7 +15,7 @@
 
           <%# User's rating badge - clickable to edit review %>
           <% if @review&.stars.present? %>
-            <%= link_to edit_movie_review_path(@movie, @review, year: current_year),
+            <%= link_to edit_movie_review_path(@movie, @review, year: current_year, return_to: request.fullpath),
                 class: "movie-card-badge animate-float",
                 data: { turbo: false } do %>
               <span class="rating-number"><%= @review.stars %></span>
@@ -40,7 +40,7 @@
               <div class="movie-card-overlay">
                 <div class="movie-card-actions">
                   <% unless @review&.stars.present? %>
-                    <%= link_to @review ? edit_movie_review_path(@movie, @review, year: current_year) : new_movie_review_path(@movie, year: current_year), class: "btn-outline-oscar btn-sm" do %>
+                    <%= link_to @review ? edit_movie_review_path(@movie, @review, year: current_year, return_to: request.fullpath) : new_movie_review_path(@movie, year: current_year, return_to: request.fullpath), class: "btn-outline-oscar btn-sm" do %>
                       <i data-lucide="popcorn" style="font-size: 1.75rem;"></i> Watched
                     <% end %>
                   <% end %>
@@ -50,7 +50,7 @@
               <%# Mobile watched button - always visible at bottom of poster %>
               <% unless @review&.stars.present? %>
                 <div class="movie-card-mobile-action">
-                  <%= link_to new_movie_review_path(@movie, year: current_year), class: "btn-outline-oscar btn-sm" do %>
+                  <%= link_to new_movie_review_path(@movie, year: current_year, return_to: request.fullpath), class: "btn-outline-oscar btn-sm" do %>
                     <i data-lucide="popcorn" style="font-size: 1.75rem;"></i> Watched
                   <% end %>
                 </div>
@@ -66,7 +66,7 @@
         <div class="flex items-center gap-3 mb-2">
           <h1 class="page-title mb-0"><%= @movie.english_title %></h1>
           <% if current_user_admin? %>
-            <%= link_to edit_movie_path(@movie, year: current_year), class: "text-slate-400 hover:text-[var(--oscar-gold-dark)] transition-colors", title: "Edit movie" do %>
+            <%= link_to edit_movie_path(@movie, year: current_year, back_to: @back_path), class: "text-slate-400 hover:text-[var(--oscar-gold-dark)] transition-colors", title: "Edit movie" do %>
               <i data-lucide="pencil" class="w-5 h-5"></i>
             <% end %>
           <% end %>

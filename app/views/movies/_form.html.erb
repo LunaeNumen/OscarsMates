@@ -2,6 +2,7 @@
   <div class="container mx-auto px-4 py-8">
     <%= form_with model: movie, url: movie.persisted? ? movie_path(movie, year: current_year) : movies_path(year: current_year), class: 'max-w-4xl mx-auto' do |form| %>
       <%= render "shared/errors", object: movie %>
+      <%= hidden_field_tag :back_to, @back_to if @back_to.present? %>
 
       <%# Basic Information Section %>
       <div class="profile-section mb-8">

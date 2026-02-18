@@ -2,12 +2,18 @@
 # It allows users to view movies and admins to create, update, and delete movies.
 # rubocop:disable Metrics/ClassLength
 class MoviesController < ApplicationController
+  MOVIE_TRANSIENT_PATH_PATTERNS = [
+    %r{\A/\d{4}/movies/[^/]+/edit\z},
+    %r{\A/\d{4}/movies/[^/]+/reviews/(?:new|\d+/edit)\z}
+  ].freeze
+
   before_action :ensure_year_selected
   before_action :require_signin, except: %i[index show]
   before_action :require_admin, except: %i[index show]
   before_action :set_movie_by_slug, only: %i[show]
   before_action :set_movie_for_admin, only: %i[edit update destroy]
-  before_action :store_return_location, only: %i[edit]
+  before_action :set_movie_show_back_path, only: %i[show]
+  before_action :set_movie_edit_context, only: %i[edit]
 
   def index
     @movies = ListMoviesQuery.new(params, current_user, current_year).results
@@ -58,7 +64,8 @@ class MoviesController < ApplicationController
 
   def update
     if @movie.update(movie_params)
-      redirect_to return_location, notice: 'Movie successfully updated!'
+      redirect_to movie_show_path_with_back_to(safe_internal_path(params[:back_to])),
+                  notice: 'Movie successfully updated!'
     else
       render :edit, status: :unprocessable_content
     end
@@ -128,18 +135,33 @@ class MoviesController < ApplicationController
     @review = current_user.reviews.find_by(movie_id: @movie.id)
   end
 
-  def store_return_location
-    session[:return_to] = request.referer if request.referer.present?
+  def set_movie_show_back_path
+    @back_path = resolve_movie_back_path(fallback: movies_path(year: current_year))
   end
 
-  def return_location
-    location = session.delete(:return_to) || request.referer
+  def set_movie_edit_context
+    @back_to = safe_internal_path(params[:back_to])
+    @show_path = movie_show_path_with_back_to(@back_to)
+  end
 
-    if location.present? && location.start_with?(request.base_url)
-      location
-    else
-      movie_path(@movie, year: current_year)
-    end
+  def resolve_movie_back_path(fallback:)
+    location = safe_internal_path(params[:back_to]) || safe_internal_referer_path
+    return fallback if location.blank?
+    return fallback if transient_movie_path?(location)
+
+    location
+  end
+
+  def transient_movie_path?(location)
+    path = path_without_query(location)
+
+    MOVIE_TRANSIENT_PATH_PATTERNS.any? { |pattern| pattern.match?(path) }
+  end
+
+  def movie_show_path_with_back_to(back_to)
+    options = { year: current_year }
+    options[:back_to] = back_to if back_to.present?
+    movie_path(@movie, options)
   end
 end
 # rubocop:enable Metrics/ClassLength

@@ -1,9 +1,9 @@
 <div class="container mx-auto px-4 py-8">
   <div class="relative mb-6">
     <%# Back Button %>
-    <button onclick="history.back()" class="back-button-movie" title="Go back">
+    <%= link_to @show_path, class: "back-button-movie", title: "Go back" do %>
       <i data-lucide="arrow-left" style="color: var(--text-tertiary);"></i>
-    </button>
+    <% end %>
 
     <h1 class="page-title text-center">Edit Movie</h1>
   </div>

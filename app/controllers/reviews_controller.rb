@@ -1,9 +1,12 @@
 # ReviewsController handles the creation and deletion of reviews for movies.
 # It ensures that only signed-in users can create or delete reviews.
 class ReviewsController < ApplicationController
+  REVIEW_FORM_PATH_PATTERN = %r{\A/\d{4}/movies/[^/]+/reviews/(?:new|\d+/edit)\z}
+
   before_action :require_year
   before_action :require_signin
   before_action :set_movie
+  before_action :set_return_to_path, only: %i[new edit]
 
   def index
     @reviews = @movie.reviews
@@ -11,12 +14,10 @@ class ReviewsController < ApplicationController
 
   def new
     @review = @movie.reviews.new
-    store_return_location
   end
 
   def edit
     @review = find_review
-    store_return_location
   end
 
   def create
@@ -60,19 +61,20 @@ class ReviewsController < ApplicationController
 
   private
 
-  def store_return_location
-    session[:return_to] = request.referer if request.referer.present?
+  def set_return_to_path
+    @return_to_path = return_location(fallback: movie_path(@movie, year: current_year))
   end
 
   def return_location(fallback: movies_path(year: current_year))
-    location = session.delete(:return_to) || request.referer
+    location = safe_internal_path(params[:return_to]) || safe_internal_referer_path
     return fallback if location.blank?
-    return fallback unless location.start_with?(request.base_url)
-
-    path = location.delete_prefix(request.base_url)
-    return fallback if path.match?(%r{/reviews/(new|\d+/edit)\z})
+    return fallback if review_form_path?(location)
 
     location
+  end
+
+  def review_form_path?(location)
+    REVIEW_FORM_PATH_PATTERN.match?(path_without_query(location))
   end
 
   def review_params
