@@ -54,7 +54,8 @@ class ReviewsController < ApplicationController
     @review = find_review
     @review&.destroy
 
-    redirect_to return_location, notice: 'Movie marked as Unwatched!'
+    redirect_to return_location(fallback: movie_path(@movie, year: current_year)),
+                notice: 'Movie marked as Unwatched!'
   end
 
   private
@@ -63,10 +64,15 @@ class ReviewsController < ApplicationController
     session[:return_to] = request.referer if request.referer.present?
   end
 
-  def return_location
-    location = session.delete(:return_to) || request.referer || movies_path(year: current_year)
-    # Ensure the return location is within the app (security measure)
-    location.start_with?(request.base_url) ? location : movies_path(year: current_year)
+  def return_location(fallback: movies_path(year: current_year))
+    location = session.delete(:return_to) || request.referer
+    return fallback if location.blank?
+    return fallback unless location.start_with?(request.base_url)
+
+    path = location.delete_prefix(request.base_url)
+    return fallback if path.match?(%r{/reviews/(new|\d+/edit)\z})
+
+    location
   end
 
   def review_params

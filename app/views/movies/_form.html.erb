@@ -131,6 +131,7 @@
         <div class="profile-section-content">
           <div data-controller="categories-select">
             <%= form.label :categories, class: "block text-sm font-semibold text-slate-900 mb-2" %>
+            <%= hidden_field_tag "movie[category_ids][]", "" %>
 
             <!-- Selected pills -->
             <div class="flex flex-wrap gap-2 mb-2" data-categories-select-target="pills"></div>

@@ -2,14 +2,17 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   connect() {
+    this.boundHighlight = this.highlightCategory.bind(this);
     this.highlightCategory();
 
     // Also handle hash changes (e.g., clicking another category link)
-    window.addEventListener("hashchange", this.highlightCategory.bind(this));
+    window.addEventListener("hashchange", this.boundHighlight);
   }
 
   disconnect() {
-    window.removeEventListener("hashchange", this.highlightCategory.bind(this));
+    if (this.boundHighlight) {
+      window.removeEventListener("hashchange", this.boundHighlight);
+    }
   }
 
   highlightCategory() {

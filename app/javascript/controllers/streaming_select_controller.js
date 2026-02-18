@@ -73,6 +73,7 @@ export default class extends Controller {
   }
 
   toggleService(event) {
+    event.preventDefault();
     event.stopPropagation();
     const checkbox = event.currentTarget.querySelector('input[type="checkbox"]');
     checkbox.checked = !checkbox.checked;
@@ -102,13 +103,21 @@ export default class extends Controller {
     this.element
       .querySelectorAll('input[name="movie[streaming_services_array][]"]')
       .forEach((el) => el.remove());
-    selected.forEach((service) => {
+    if (selected.length === 0) {
       const input = document.createElement("input");
       input.type = "hidden";
       input.name = "movie[streaming_services_array][]";
-      input.value = service;
+      input.value = "";
       this.element.appendChild(input);
-    });
+    } else {
+      selected.forEach((service) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "movie[streaming_services_array][]";
+        input.value = service;
+        this.element.appendChild(input);
+      });
+    }
 
     // Render pills
     this.pillsTarget.innerHTML = "";

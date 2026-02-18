@@ -73,6 +73,7 @@ export default class extends Controller {
   }
 
   toggleCategory(event) {
+    event.preventDefault();
     event.stopPropagation();
     const checkbox = event.currentTarget.querySelector('input[type="checkbox"]');
     checkbox.checked = !checkbox.checked;
