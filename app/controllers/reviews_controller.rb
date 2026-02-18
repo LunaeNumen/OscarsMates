@@ -11,10 +11,12 @@ class ReviewsController < ApplicationController
 
   def new
     @review = @movie.reviews.new
+    store_return_location
   end
 
   def edit
     @review = find_review
+    store_return_location
   end
 
   def create
@@ -23,7 +25,7 @@ class ReviewsController < ApplicationController
     set_watched_on_time
 
     if @review.save
-      redirect_to movies_path(year: current_year),
+      redirect_to return_location,
                   notice: 'Thanks for your review!'
     else
       render :new, status: :unprocessable_content
@@ -41,7 +43,7 @@ class ReviewsController < ApplicationController
 
     if @review.save
       notice_message = @review.stars.present? ? 'Review updated!' : 'Movie marked as Unwatched!'
-      redirect_to movies_path(year: current_year),
+      redirect_to return_location,
                   notice: notice_message
     else
       render :edit, status: :unprocessable_content
@@ -52,10 +54,20 @@ class ReviewsController < ApplicationController
     @review = find_review
     @review&.destroy
 
-    redirect_to movies_path(year: current_year), notice: 'Movie marked as Unwatched!'
+    redirect_to return_location, notice: 'Movie marked as Unwatched!'
   end
 
   private
+
+  def store_return_location
+    session[:return_to] = request.referer if request.referer.present?
+  end
+
+  def return_location
+    location = session.delete(:return_to) || request.referer || movies_path(year: current_year)
+    # Ensure the return location is within the app (security measure)
+    location.start_with?(request.base_url) ? location : movies_path(year: current_year)
+  end
 
   def review_params
     params.require(:review).permit(:comment, :stars, :watched_on)

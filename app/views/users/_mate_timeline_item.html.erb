@@ -38,7 +38,7 @@
             <%= link_to review.user.name, user_path(review.user), class: "timeline-username-link" %>
           </div>
           <div class="text-lg italic text-slate-600 timeline-event">
-            Watched "<span class="timeline-movie-title"><%= review.movie.title %></span>"
+            Watched "<%= link_to review.movie.title, movie_path(review.movie, year: current_year), class: "timeline-movie-title" %>"
             <% days_ago = (Date.current - review.watched_on.to_date).to_i %>
             <span title="<%= review.watched_on.strftime('%B %d, %Y at %I:%M %p') %>">
               <% if days_ago == 0 %>

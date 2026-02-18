@@ -48,3 +48,12 @@ application.register("search", SearchController)
 
 import StarRatingController from "./star_rating_controller"
 application.register("star-rating", StarRatingController)
+
+import StreamingSelectController from "./streaming_select_controller"
+application.register("streaming-select", StreamingSelectController)
+
+import CategoriesSelectController from "./categories_select_controller"
+application.register("categories-select", CategoriesSelectController)
+
+import CategoryHighlightController from "./category_highlight_controller"
+application.register("category-highlight", CategoryHighlightController)

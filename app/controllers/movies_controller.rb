@@ -4,7 +4,9 @@ class MoviesController < ApplicationController
   before_action :ensure_year_selected
   before_action :require_signin, except: %i[index show]
   before_action :require_admin, except: %i[index show]
-  before_action :set_movie, only: %i[show edit update destroy]
+  before_action :set_movie_by_slug, only: %i[show]
+  before_action :set_movie_for_admin, only: %i[edit update destroy]
+  before_action :store_return_location, only: %i[edit]
 
   def index
     @movies = ListMoviesQuery.new(params, current_user, current_year).results
@@ -28,9 +30,13 @@ class MoviesController < ApplicationController
   end
 
   def show
-    @fans = @movie.fans
     @genres = @movie.genres.order(:name)
-    @categories = @movie.categories.order(:name)
+    @categories = @movie.categories
+                        .joins(:nominations)
+                        .where(nominations: { movie_id: @movie.id, year: current_year })
+                        .distinct
+                        .order(:name)
+    @reviews = @movie.reviews.includes(:user).order(watched_on: :desc)
     set_users_specific_data if current_user
   end
 
@@ -51,7 +57,7 @@ class MoviesController < ApplicationController
 
   def update
     if @movie.update(movie_params)
-      redirect_to movie_path(@movie, year: current_year), notice: 'Movie successfully updated!'
+      redirect_to return_location, notice: 'Movie successfully updated!'
     else
       render :edit, status: :unprocessable_content
     end
@@ -74,13 +80,26 @@ class MoviesController < ApplicationController
     @movies = MovieSortingService.new(@movies, params[:sort_by], current_user).call
   end
 
+  def set_movie_by_slug
+    # Admins can view any movie, others can only view movies nominated in current year
+    @movie = if current_user_admin?
+               Movie.find_by!(slug: params[:id])
+             else
+               Movie.for_year(current_year).find_by!(slug: params[:id])
+             end
+  end
+
   def set_movie
     @movie = Movie.for_year(current_year).find_by!(slug: params[:id])
   end
 
+  def set_movie_for_admin
+    @movie = Movie.find_by!(slug: params[:id])
+  end
+
   def movie_params
     params.require(:movie).permit(:title, :english_title, :where_to_watch, :runtime, :rating, :url, :picture_url,
-                                  genre_ids: [], category_ids: [])
+                                  genre_ids: [], category_ids: [], streaming_services_array: [])
   end
 
   def filter_movies
@@ -105,7 +124,20 @@ class MoviesController < ApplicationController
   end
 
   def set_users_specific_data
-    @favorite = current_user.favorites.find_by(movie_id: @movie.id)
     @review = current_user.reviews.find_by(movie_id: @movie.id)
+  end
+
+  def store_return_location
+    session[:return_to] = request.referer if request.referer.present?
+  end
+
+  def return_location
+    location = session.delete(:return_to) || request.referer
+
+    if location.present? && location.start_with?(request.base_url)
+      location
+    else
+      movie_path(@movie, year: current_year)
+    end
   end
 end
